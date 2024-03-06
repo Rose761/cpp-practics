@@ -95,38 +95,6 @@ void Draw(struct Record* records) {
 	cout.width(width + 1); cout.fill('-'); cout << "-" << endl;
 }
 
-vector<int> getMinMonthDate(struct Record* records) {
-	vector<int> indexes;
-	int minMonth = 13;
-	for (int i = 0; i < 10; i++) {
-		if (records[i].date.month < minMonth) {
-			minMonth = records[i].date.month;
-		}
-	}
-	for (int i = 0; i < 10; i++) {
-		if (minMonth == records[i].date.month) {
-			indexes.push_back(i);
-		}
-	}
-	return indexes;
-}
-
-vector<int> getMaxMonthDate(struct Record* records) {
-	vector<int> indexes;
-	int maxMonth = 0;
-	for (int i = 0; i < 10; i++) {
-		if ((maxMonth < records[i].date.month) and (records[i].date.month < 13)) {
-			maxMonth = records[i].date.month;
-		}
-	}
-	for (int i = 0; i < 10; i++) {
-		if (maxMonth == records[i].date.month) {
-			indexes.push_back(i);
-		}
-	}
-	return indexes;
-}
-
 int main(){
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -136,25 +104,6 @@ int main(){
 	records[0] = { "Тр.", "12 ", 27.550, "75 ", {03,04,2022} };
 	records[1] = { "Т-с", "17 ", 13.600, "57 ", {03,04,2020} };
 	records[2] = { "А", "12а",  57.300, "117", {04,03,2022} };
-
-	Draw(records);
-
-	vector<int> minIndexes = getMinMonthDate(records);
-	vector<int> maxIndexes = getMaxMonthDate(records);
-	for (auto i : minIndexes)
-		cout << endl << "minIndexes = " << i << ' ';
-	for (auto i : maxIndexes)
-		cout << endl << "maxIndexes = " << i << ' ';
-
-	cout << endl << "Поменять местами записи(элементы массива структур),";
-	cout << endl << "содержащие минимальный и максимальный номер месяца даты" << endl;
-
-	struct Record tmpRecord = records[maxIndexes[0]];
-	for (auto i : maxIndexes)
-		records[i] = records[minIndexes[0]];
-	for (auto i : minIndexes)
-		records[i] = tmpRecord;
-
 
 	Draw(records);
 }
